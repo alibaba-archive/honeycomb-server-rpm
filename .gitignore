@@ -1,0 +1,8 @@
+RPMS/*
+SOURCES/*
+!RPMS/README
+!SOURCES/README
+!SOURCES/server_ctl
+!SOURCES/nginx.conf
+!SOURCES/config.js
+.DS_Store
