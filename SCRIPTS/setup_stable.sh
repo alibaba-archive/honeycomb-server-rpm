@@ -6,9 +6,6 @@
 #
 # Run as root or insert `sudo -E` before `bash`:
 #
-# curl -sL https://rpm.nodesource.com/setup_8.x | bash -
-#   or
-# wget -qO- https://rpm.nodesource.com/setup_8.x | bash -
 #
 
 print_status() {
@@ -112,7 +109,7 @@ RELEASE_URL_VERSION_STRING="${DIST_TYPE}${DIST_VERSION}"
 # ${DIST_VERSION}/\
 # ${DIST_ARCH}/\
 # nodesource-release-${RELEASE_URL_VERSION_STRING}-1.noarch.rpm"
-RELEASE_URL=http://127.0.0.1:8080/honeycomb-server-1.0.0-4.el7.centos.x86_64.rpm
+RELEASE_URL=
 
 print_status "Confirming \"${DIST_TYPE}${DIST_VERSION}-${DIST_ARCH}\" is supported..."
 
@@ -140,8 +137,7 @@ exec_cmd "curl -sL -o '${RPM_TMP}' '${RELEASE_URL}'"
 
 print_status "Installing release setup RPM..."
 
-## --nosignature because nodesource-release contains the signature!
-# exec_cmd "rpm -i --nosignature --force '${RPM_TMP}'"
+exec_cmd "rpm -i --nosignature --force '${RPM_TMP}'"
 
 print_status "Cleaning up..."
 
