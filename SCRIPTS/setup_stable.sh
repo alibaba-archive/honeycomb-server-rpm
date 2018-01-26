@@ -7,6 +7,11 @@
 # Run as root or insert `sudo -E` before `bash`:
 #
 #
+if test "`whoami`" != "root" ; then
+        echo "You must be logged in as root to install (for create folder and add user admin)"
+        echo "Enter 'su' or 'sudo bash' to switch to root"
+        exit
+fi
 
 print_status() {
   local outp=$(echo "$1" | sed -r 's/\\n/\\n## /mg')
