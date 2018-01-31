@@ -15,11 +15,11 @@ module.exports = {
      * 控制台登陆用户名
      */
     username: 'honeycomb',
-    password: '1f56cc099ad6239edc95ead79f532118d697b04b6d7902f246be1a5ea6193abc', // `bin/gen_pwd $newpwd` 可以重新创建
+    password: 'dd0cf4ed95b64c54deaf78a11f36e9ad990380df730f1ae34aa7a38afc9ce383', // 'honeycomb'
     /**
      * 控制台签名密码
      */
-    token: 'PLEASE_CHANGE_ME_QING_GENG_HUAN',
+    token: '***honeycomb-default-token***',
     /**
      * 开启默认的publish页面
      */
