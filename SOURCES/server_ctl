@@ -263,6 +263,9 @@ case "$ACTION" in
   offline)
     offline
   ;;
+  server)
+    $NODEJS_BIN $PROJECT_DIR/bin/control $2 $3 $4
+  ;;
   *)
     usage
   ;;
