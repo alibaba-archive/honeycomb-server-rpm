@@ -6,3 +6,4 @@ SOURCES/*
 !SOURCES/nginx.conf
 !SOURCES/config.js
 .DS_Store
+*.swp
