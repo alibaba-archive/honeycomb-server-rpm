@@ -7,3 +7,4 @@ SOURCES/*
 !SOURCES/config.js
 .DS_Store
 *.swp
+run/

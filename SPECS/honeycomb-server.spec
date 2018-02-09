@@ -1,11 +1,11 @@
 %define user admin
 %define cronolog_version 1.6.2
 %define tengine_version 2.2.1
-%define honeycomb_server_version  1.0.1
+%define honeycomb_server_version  1.0.2_1
 
 Name:     	honeycomb-server
-Version:        1.0.1
-Release:        0%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        the micro-app container
 
 License:        MIT
