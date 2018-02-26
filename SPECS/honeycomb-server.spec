@@ -1,18 +1,18 @@
 %define user admin
 %define cronolog_version 1.6.2
 %define tengine_version 2.2.1
-%define honeycomb_server_version  1.0.2_1
+%define honeycomb_server_version  1.0.3_1
 
-Name:     	honeycomb-server
-Version:        1.0.2
+Name:     	    honeycomb-server
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        the micro-app container
 
 License:        MIT
 URL:            https://github.com/node-honeycomb
 Source0:        cronolog-%{cronolog_version}.tar.gz
-Source1:	tengine-%{tengine_version}.tar.gz
-Source2:	honeycomb-server_%{honeycomb_server_version}.tgz
+Source1:	    tengine-%{tengine_version}.tar.gz
+Source2:	    honeycomb-server_%{honeycomb_server_version}.tgz
 Prefix:         /usr
 Group:          Development/Tools
 

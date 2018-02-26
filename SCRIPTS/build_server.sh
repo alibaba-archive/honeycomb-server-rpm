@@ -7,7 +7,7 @@ REPO_NAME="honeycomb-server"
 VER=$1
 echo "build version: $VER"
 if  [ -z $VER ]; then
-    echo "version missing.example: ./build_server VER"
+    echo "version missing.example: ./build_server 0.0.1"
     exit 1
 fi
 
@@ -35,6 +35,8 @@ git pull
 
 checkCmd make
 
+echo "run docker build for linux"
+
 docker run  --rm  -v $(pwd):/source node:8 /bin/bash -c "cd /source/ && make package"
 
 cd out/
@@ -44,4 +46,6 @@ cp release/* honeycomb-server_$VER
 tar cvf honeycomb-server_$VER.tgz honeycomb-server_$VER
 
 cp honeycomb-server_$VER.tgz ../../../SOURCES
+
+echo "now honeycomb-server_$VER.tgz is in your SOURCES dir"
 
