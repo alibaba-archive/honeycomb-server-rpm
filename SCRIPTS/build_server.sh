@@ -22,6 +22,7 @@ checkCmd git
 
 mkdir -p run && cd run
 
+rm -rf $REPO_NAME
 
 if ! [ -d $REPO_NAME ]; then
     git clone $REPO_URL

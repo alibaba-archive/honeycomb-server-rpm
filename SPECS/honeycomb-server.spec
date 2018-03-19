@@ -1,11 +1,11 @@
 %define user admin
 %define cronolog_version 1.6.2
 %define tengine_version 2.2.1
-%define honeycomb_server_version  1.0.3_1
+%define honeycomb_server_version  1.0.4_2
 
 Name:     	    honeycomb-server
-Version:        1.0.3
-Release:        1%{?dist}
+Version:        1.0.4
+Release:        2%{?dist}
 Summary:        the micro-app container
 
 License:        MIT
@@ -42,14 +42,15 @@ exit 0
 ./configure
 
 %setup -b 1 -n tengine-%{tengine_version}
-./configure   --with-http_ssl_module \
+./configure  \
+ --with-http_ssl_module \
  --with-http_flv_module \
  --user=admin \
  --group=admin \
  --with-http_stub_status_module \
  --with-http_gzip_static_module \
  --with-http_upstream_check_module \
- --prefix=/home/admin/nginx
+ --prefix=/home/admin/nginx \
 
 %setup -b 2 -n honeycomb-server_%{honeycomb_server_version}
 

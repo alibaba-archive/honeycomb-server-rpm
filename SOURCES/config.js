@@ -11,6 +11,7 @@ module.exports = {
      * 服务控制台端口，可更改
      */
     port: 9999,
+    logsRoot: '/home/admin/honeycomb/logs',
     /**
      * 控制台登陆用户名
      */
