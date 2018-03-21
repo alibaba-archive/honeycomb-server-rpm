@@ -114,7 +114,7 @@ RELEASE_URL_VERSION_STRING="${DIST_TYPE}${DIST_VERSION}"
 # ${DIST_VERSION}/\
 # ${DIST_ARCH}/\
 # nodesource-release-${RELEASE_URL_VERSION_STRING}-1.noarch.rpm"
-RELEASE_URL="https://github-production-release-asset-2e65be.s3.amazonaws.com/114438106/36aa7902-0cd0-11e8-8f38-c23137077b3c?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20180208%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20180208T050628Z&X-Amz-Expires=300&X-Amz-Signature=593e67babee0a2581cb4c510044c871927943c7802cebc2496d1ad12d1ff5c3d&X-Amz-SignedHeaders=host&actor_id=5602416&response-content-disposition=attachment%3B%20filename%3Dhoneycomb-server-1.0.1-0.el7.centos.x86_64.rpm&response-content-type=application%2Foctet-stream"
+RELEASE_URL="https://github-production-release-asset-2e65be.s3.amazonaws.com/114438106/55340e48-2908-11e8-9941-ba06b68ea022?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20180321%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20180321T095456Z&X-Amz-Expires=300&X-Amz-Signature=10a882091c6fd2eb95bbd515f4aca3a7f3f3f71a35016bc54cf6db381b1c4985&X-Amz-SignedHeaders=host&actor_id=5602416&response-content-disposition=attachment%3B%20filename%3Dhoneycomb-server-1.0.4-2.el7.centos.x86_64.rpm&response-content-type=application%2Foctet-stream"
 
 print_status "Confirming \"${DIST_TYPE}${DIST_VERSION}-${DIST_ARCH}\" is supported..."
 
