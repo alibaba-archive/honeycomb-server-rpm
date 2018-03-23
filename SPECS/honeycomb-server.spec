@@ -34,7 +34,7 @@ if [ $backlog -lt 10240 ]; then
 fi
 getent group %{user}>/dev/null || groupadd -r %{user}
 getent passwd %{user}>/dev/null || \
-    useradd -r -g %{user} -d /home/%{admin}  \
+    useradd -r -g %{user} -d /home/%{user}  \
     -c "admin account for honeycomb" %{user}
 exit 0
 %prep
