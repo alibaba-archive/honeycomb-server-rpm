@@ -49,20 +49,35 @@ usage() {
   echo "Usage: $0 {start|stop|status|restart|online|offline|deploy}"
   exit 1;
 }
-
+# tar PATH
+statTime() {
+   if [[ `echo $OSTYPE | grep -c 'darwin'` -eq 1 ]]; then
+    time=`stat -f "%Sm" -t "%s" $1`
+  else
+    time=`stat -c '%Y' $1`
+  fi
+  return $time
+}
 ## force user to be admin
 checkuser
 
 ## decompress tgz file
 need_tar=0
 if [ -f $PROJECT_TAR ]; then
-  if [[ `echo $OSTYPE | grep -c 'darwin'` -eq 1 ]]; then
-    tgz_time=`stat -f "%Sm" -t "%s" $PROJECT_TAR`
-    dir_time=`stat -f "%Sm" -t "%s" $PROJECT_DIR`
-  else
-    tgz_time=`stat -c '%Y' $PROJECT_TAR`
-    dir_time=`stat -c '%Y' $PROJECT_DIR`
+  # if [[ `echo $OSTYPE | grep -c 'darwin'` -eq 1 ]]; then
+  #   tgz_time=`stat -f "%Sm" -t "%s" $PROJECT_TAR`
+  #   dir_time=`stat -f "%Sm" -t "%s" $PROJECT_DIR`
+  # else
+  #   tgz_time=`stat -c '%Y' $PROJECT_TAR`
+  #   dir_time=`stat -c '%Y' $PROJECT_DIR`
+  # fi
+  dir_time=0
+  if [ -d $PROJECT_DIR ]; then
+    statTime $PROJECT_DIR
+    dir_time=$
   fi
+  statTime $PROJECT_TAR
+  tgz_time=$?
   echo "tar time: $tgz_time, dir time: $dir_time"
   if [ $tgz_time -gt $dir_time ]; then
       need_tar=1
