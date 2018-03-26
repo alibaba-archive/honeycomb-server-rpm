@@ -239,6 +239,7 @@ node_stop() {
 
 case "$ACTION" in
   start)
+    depress
     node_start
     nginx_start
   ;;
