@@ -215,6 +215,9 @@ node_start() {
     done
     if [ $flag -eq 1 ]; then
       echo "server start successfully."
+      if [ ! -z "$NO_DEAMON" ]; then
+        exec "$@"
+      fi
     elif [ $flag -eq 2 ]; then
       echo 'server start failed: server not ready'
     else
