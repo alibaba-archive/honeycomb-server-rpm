@@ -58,8 +58,11 @@ statTime() {
   fi
   return $time
 }
-## force user to be admin
-checkuser
+## force user to be admin,but if in docker,ignore
+
+if [ -z "$DOCKER_RUN" ]; then
+  checkuser
+fi
 
 ## decompress tgz file
 need_tar=0
@@ -215,7 +218,7 @@ node_start() {
     done
     if [ $flag -eq 1 ]; then
       echo "server start successfully."
-      if [ ! -z "$NO_DEAMON" ]; then
+      if [ ! -z "$DOCKER_RUN" ]; then
         exec "$@"
       fi
     elif [ $flag -eq 2 ]; then

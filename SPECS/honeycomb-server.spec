@@ -88,6 +88,7 @@ sh honeycomb_install.sh $RPM_BUILD_ROOT/home/admin/honeycomb
 rm -rf $RPM_BUILD_ROOT/home/admin/honeycomb/target/honeycomb
 cp -f  %{_builddir}/../SOURCES/server_ctl $RPM_BUILD_ROOT/home/admin/honeycomb/bin
 cp -f  %{_builddir}/../SOURCES/config.js $RPM_BUILD_ROOT/home/admin/honeycomb/conf
+mv $RPM_BUILD_ROOT/home/admin/honeycomb/conf/config.js $RPM_BUILD_ROOT/home/admin/honeycomb/conf/config_default.js
 
 %files
 %attr(0755, admin, admin) /home/admin/nginx
