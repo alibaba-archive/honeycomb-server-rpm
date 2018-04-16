@@ -77,7 +77,7 @@ if [ -f $PROJECT_TAR ]; then
   dir_time=0
   if [ -d $PROJECT_DIR ]; then
     statTime $PROJECT_DIR
-    dir_time=$
+    dir_time=$?
   fi
   statTime $PROJECT_TAR
   tgz_time=$?
@@ -125,12 +125,10 @@ backup() {
 # get pid
 pid=0
 check_pid() {
-  if [ -f $PID_FILE ]; then
-    pid=`cat $PID_FILE`
-  else
-    return 1
+  pid=`ps ax | grep ${NODEJS_BIN} | grep -v grep | grep 'dispatch' | awk '{print $1}'`
+  if [ ! pid ]; then
+    return 0
   fi
-
   ps -p $pid > /dev/null
   if [ $? -eq 1 ]; then
     return 1
@@ -144,7 +142,7 @@ nginx_start(){
   $NGINX_BIN -s start 
 }
 nginx_restart(){
-  $NGINX_BIN -s reload
+  $NGINX_BIN -s restart
 }
 
 online() {
@@ -218,9 +216,6 @@ node_start() {
     done
     if [ $flag -eq 1 ]; then
       echo "server start successfully."
-      if [ ! -z "$DOCKER_RUN" ]; then
-        exec "$@"
-      fi
     elif [ $flag -eq 2 ]; then
       echo 'server start failed: server not ready'
     else
@@ -261,12 +256,12 @@ node_stop() {
 case "$ACTION" in
   start)
     depress
-    node_start
     nginx_start
+    node_start
   ;;
   stop)
-    node_stop
     nginx_stop
+    node_stop
   ;;
   status)
     node_status
@@ -275,9 +270,9 @@ case "$ACTION" in
     offline
     node_stop
     depress
+    nginx_restart
     node_start
     backup
-    nginx_restart
   ;;
   online)
     online

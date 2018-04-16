@@ -1,11 +1,11 @@
 %define user admin
 %define cronolog_version 1.6.2
 %define tengine_version 2.2.1
-%define honeycomb_server_version  1.0.4_3
+%define honeycomb_server_version  1.0.4_5
 
 Name:     	    honeycomb-server
 Version:        1.0.4
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        the micro-app container
 
 License:        MIT
@@ -91,6 +91,7 @@ cp -f  %{_builddir}/../SOURCES/config.js $RPM_BUILD_ROOT/home/admin/honeycomb/co
 mv $RPM_BUILD_ROOT/home/admin/honeycomb/conf/config.js $RPM_BUILD_ROOT/home/admin/honeycomb/conf/config_default.js
 
 %files
+%attr(0755, admin, admin) /home/admin
 %attr(0755, admin, admin) /home/admin/nginx
 %attr(0755, admin, admin) /home/admin/honeycomb
 %attr(6755, root, admin) /home/admin/nginx/sbin/nginx
