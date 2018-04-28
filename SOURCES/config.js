@@ -13,14 +13,6 @@ module.exports = {
     port: 9999,
     logsRoot: '/home/admin/honeycomb/logs',
     /**
-     * 控制台登陆密码
-     */
-    password: 'dd0cf4ed95b64c54deaf78a11f36e9ad990380df730f1ae34aa7a38afc9ce383', // 'honeycomb'
-    /**
-     * 控制台签名密码
-     */
-    token: '***honeycomb-default-token***',
-    /**
      * 开启默认的publish页面
      */
     enablePublishPage: true,

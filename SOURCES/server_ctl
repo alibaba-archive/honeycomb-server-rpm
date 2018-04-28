@@ -136,15 +136,38 @@ check_pid() {
   return 0
 }
 nginx_stop() {
-  $NGINX_BIN -s stop
+    echo 'stopping nginx'
+    nginx_num=`ps -ef | grep nginx |grep -v grep -c`
+    if [[ $nginx_num -ge 1 ]]; then
+        ${NGINX_BIN} -s stop > /dev/null
+        if [ $? -ne 0 ]; then
+            kill $(ps aux | grep '[n]ginx' | awk '{print $2}')
+            nginx_dead_num=`ps -ef |grep nginx |grep -v grep -c`
+            if [[ $nginx_dead_num -ge 1 ]]; then
+              echo 'nginx stop failed'
+              exit 1;
+            fi
+        else
+            echo 'nginx stoped'
+        fi
+    fi
+    sleep 1
 }
 nginx_start(){
-  $NGINX_BIN -s start 
+    echo 'starting nginx'
+    local nginx_num=`ps ax | grep nginx |grep -v grep | wc -l`
+    if [ $nginx_num -eq 0 ]; then
+        ${NGINX_BIN} -s start > /dev/null
+        if [ $? -ne 0 ]; then
+            echo 'nginx start failed'
+            exit 1;
+        fi
+        sleep 1
+        echo 'nginx is started'
+    else
+        echo 'nginx is running'
+    fi
 }
-nginx_restart(){
-  $NGINX_BIN -s restart
-}
-
 online() {
   echo "Not yet support, please using restart"
 }
@@ -268,11 +291,12 @@ case "$ACTION" in
   ;;
   restart)
     offline
-    node_stop
     depress
-    nginx_restart
+    node_stop
+    nginx_stop
+    nginx_start
     node_start
-    backup
+    # online
   ;;
   online)
     online
