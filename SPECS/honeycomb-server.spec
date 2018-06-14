@@ -1,11 +1,12 @@
 %define user admin
 %define cronolog_version 1.6.2
 %define tengine_version 2.2.1
-%define honeycomb_server_version  1.0.6_1
+%define honeycomb_server_version  1.0.7_1
+%define use_systemd (0%{?fedora} && 0%{?fedora} >= 18) || (0%{?rhel} && 0%{?rhel} >= 7) || (0%{?suse_version} && 0%{?suse_version} >=1210)
 
 Name:     	    honeycomb-server
-Version:        1.0.6_1
-Release:        2%{?dist}
+Version:        1.0.7_1
+Release:        1%{?dist}
 Summary:        the micro-app container
 
 License:        MIT
@@ -70,6 +71,8 @@ make %{?_smp_mflags}
 cd ../
 %install
 
+install -D -m 0644 %{_builddir}/../SOURCES/honeycomb_server.service %{buildroot}%{_unitdir}/honeycomb_server.service
+
 cd %{_builddir}
 cd cronolog-%{cronolog_version}
 make install prefix=$RPM_BUILD_ROOT/usr
@@ -87,14 +90,21 @@ cd honeycomb-server_%{honeycomb_server_version}
 sh honeycomb_install.sh $RPM_BUILD_ROOT/home/admin/honeycomb
 rm -rf $RPM_BUILD_ROOT/home/admin/honeycomb/target/honeycomb
 cp -f  %{_builddir}/../SOURCES/server_ctl $RPM_BUILD_ROOT/home/admin/honeycomb/bin
-cp -f  %{_builddir}/../SOURCES/config.js $RPM_BUILD_ROOT/home/admin/honeycomb/conf
+cp  %{_builddir}/../SOURCES/config.js $RPM_BUILD_ROOT/home/admin/honeycomb/conf
 mv $RPM_BUILD_ROOT/home/admin/honeycomb/conf/config.js $RPM_BUILD_ROOT/home/admin/honeycomb/conf/config_default.js
+
+%post
+%if %use_systemd
+    /usr/bin/systemctl preset %{pkgname}.service >/dev/null 2>&1 ||:
+%else
+%endif
 
 %files
 %attr(0755, admin, admin) /home/admin
 %attr(0755, admin, admin) /home/admin/nginx
 %attr(0755, admin, admin) /home/admin/honeycomb
 %attr(6755, root, admin) /home/admin/nginx/sbin/nginx
+%attr(644, root, root) %{_unitdir}/honeycomb_server.service
 /usr/sbin/cronolog
 /usr/sbin/cronosplit
 /home/admin/nginx
@@ -104,3 +114,4 @@ mv $RPM_BUILD_ROOT/home/admin/honeycomb/conf/config.js $RPM_BUILD_ROOT/home/admi
 /usr/man/man1/cronosplit.1m.gz
 /usr/info/cronolog.info.gz
 /usr/info/dir
+
