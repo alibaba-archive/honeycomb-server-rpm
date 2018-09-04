@@ -1,16 +1,16 @@
 %define user admin
 %define cronolog_version 1.6.2
 %define tengine_version 2.2.1
-%define honeycomb_server_version  1.0.7_1
+%define honeycomb_server_version  1.0.9_3
 %define use_systemd (0%{?fedora} && 0%{?fedora} >= 18) || (0%{?rhel} && 0%{?rhel} >= 7) || (0%{?suse_version} && 0%{?suse_version} >=1210)
 
 Name:     	    honeycomb-server
-Version:        1.0.7_1
+Version:        1.0.9_3
 Release:        1%{?dist}
 Summary:        the micro-app container
 
 License:        MIT
-URL:            https://github.com/node-honeycomb
+URL:            https://github.com/node-honeycomb/honeycomb-server
 Source0:        cronolog-%{cronolog_version}.tar.gz
 Source1:	    tengine-%{tengine_version}.tar.gz
 Source2:	    honeycomb-server_%{honeycomb_server_version}.tgz
