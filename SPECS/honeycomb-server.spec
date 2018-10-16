@@ -1,11 +1,11 @@
 %define user admin
 %define cronolog_version 1.6.2
 %define tengine_version 2.2.1
-%define honeycomb_server_version  1.0.9_7
+%define honeycomb_server_version  1.0.10_1
 %define use_systemd (0%{?fedora} && 0%{?fedora} >= 18) || (0%{?rhel} && 0%{?rhel} >= 7) || (0%{?suse_version} && 0%{?suse_version} >=1210)
 
 Name:     	    honeycomb-server
-Version:        1.0.9_7
+Version:        1.0.10_1
 Release:        1%{?dist}
 Summary:        the micro-app container
 
