@@ -1,11 +1,11 @@
 %define user admin
 %define cronolog_version 1.6.2
 %define tengine_version 2.2.1
-%define honeycomb_server_version  1.0.9_3
+%define honeycomb_server_version  1.0.9_7
 %define use_systemd (0%{?fedora} && 0%{?fedora} >= 18) || (0%{?rhel} && 0%{?rhel} >= 7) || (0%{?suse_version} && 0%{?suse_version} >=1210)
 
 Name:     	    honeycomb-server
-Version:        1.0.9_3
+Version:        1.0.9_7
 Release:        1%{?dist}
 Summary:        the micro-app container
 
@@ -18,6 +18,7 @@ Prefix:         /usr
 Group:          Development/Tools
 
 BuildRequires:  gcc, make
+Requires: cronie
 
 %description
 the micro-app container written in node.js
@@ -89,7 +90,9 @@ cd %{_builddir}
 cd honeycomb-server_%{honeycomb_server_version}
 sh honeycomb_install.sh $RPM_BUILD_ROOT/home/admin/honeycomb
 rm -rf $RPM_BUILD_ROOT/home/admin/honeycomb/target/honeycomb
-cp -f  %{_builddir}/../SOURCES/server_ctl $RPM_BUILD_ROOT/home/admin/honeycomb/bin
+cp -f %{_builddir}/../SOURCES/server_ctl $RPM_BUILD_ROOT/home/admin/honeycomb/bin
+cp -f %{_builddir}/../SOURCES/crontab_clear_logs $RPM_BUILD_ROOT/home/admin/honeycomb/bin
+cp -f %{_builddir}/../SOURCES/nginx_clean_log $RPM_BUILD_ROOT/home/admin/nginx/sbin
 cp  %{_builddir}/../SOURCES/config.js $RPM_BUILD_ROOT/home/admin/honeycomb/conf
 mv $RPM_BUILD_ROOT/home/admin/honeycomb/conf/config.js $RPM_BUILD_ROOT/home/admin/honeycomb/conf/config_default.js
 
@@ -98,6 +101,14 @@ mv $RPM_BUILD_ROOT/home/admin/honeycomb/conf/config.js $RPM_BUILD_ROOT/home/admi
     /usr/bin/systemctl preset %{pkgname}.service >/dev/null 2>&1 ||:
 %else
 %endif
+# begin crontab
+if grep -q crontab_clear_logs /var/spool/cron/admin; then
+  echo "crontab already inited";
+else
+  echo "install crontab jobs"
+  echo '30 2 * * * /home/admin/honeycomb/bin/crontab_clear_logs > /dev/null 2>&1' > /var/spool/cron/admin
+  echo '30 2 * * * /home/admin/nginx/sbin/nginx_clean_log > /dev/null 2>&1' >> /var/spool/cron/admin
+fi
 
 %files
 %attr(0755, admin, admin) /home/admin
