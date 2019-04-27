@@ -22,7 +22,7 @@ docker镜像完成之后rpm包会挂载到RPMS下
 
 工作流
 
-1. 下载你想要的tengine，honeycomb server和cronolog的源码到SOURCES,原本已经存在了honeycomb server的config.js,nginx.conf和server_ctl
+1. 下载你想要的tengine，honeycomb server和cronolog的源码到SOURCES,原本已经存在了honeycomb server的config.js,nginx.conf和server_ctl。运行./SCRIPTS/build_server.sh [VERSION] 可以打包对应版本的server
 
 2. 编辑SPECS/honeycomb-server.spec,根据你下载的版本正确设置honeycomb_server_version,tengine_version,cronolog_version的版本
 
